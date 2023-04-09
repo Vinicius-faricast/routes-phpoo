@@ -20,6 +20,7 @@
         
         private function simpleRouter(){
 
+            
             if(array_key_exists($this->uri,$this->routesRegistered[$this->method])){
                 return $this->routesRegistered[$this->method][$this->uri];
             }
@@ -41,7 +42,7 @@
 
         public function get(){
 
-
+            
             if($this->simpleRouter()){
                 $route = $this->simpleRouter();
 
