@@ -7,15 +7,16 @@
     class UserController extends Controller{
 
         public function edit($params){
-            
+
             $this->view('user', ['title' => 'Editar user']);
         }
 
         public function update($params){
 
-            $response = Request::only('firstName');
+            $response = Request::only('password');
             dd($response);
         }
+        
     }
 
 ?>

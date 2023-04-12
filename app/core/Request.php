@@ -2,7 +2,7 @@
 
     namespace app\core;
 
-use Exception;
+    use Exception;
 
     class Request{
 
@@ -24,13 +24,52 @@ use Exception;
             $fieldsPost = self::all();
             $fieldsPostKeys = array_keys($fieldsPost);
 
+            $arr = [];
 
             foreach ($fieldsPostKeys as $index => $value) {
-                if($value !== (is_string($only)?$only:(isset($only[$index])?$only[$index] : null))){
-                    unset($fieldsPost[$value]);
+
+                $onlyFields = (is_string($only)?$only:(isset($only[$index])?$only[$index] : null));
+                if(isset($fieldsPost[$onlyFields])){
+                    $arr[$onlyFields] = $fieldsPost[$onlyFields];
                 }
             }
+            return $arr;
+        }
+
+        public static function excepts(string|array $excepts){
+
+            $fieldsPost = self::all();
+
+            if (is_array($excepts)){
+                foreach ($excepts as $index => $value){
+                    unset($fieldsPost[$value]);
+                }
+            }elseif(is_string($excepts)){
+                unset($fieldsPost[$excepts]);
+            }
             return $fieldsPost;
+        }
+
+        public static function query(string $name){
+
+            if(!isset($_GET[$name])){
+                throw new Exception("Não existe a querry string $name");
+            }else{
+                return $_GET[$name];
+            }
+        }
+
+        public static function toJson(array $data){
+
+            return json_encode($data);
+        }
+
+        public static function toArray($data){
+            
+            if (isJson($data)){
+
+                return json_decode($data);
+            }
         }
     }
 ?>
