@@ -40,7 +40,7 @@
         public function findBy(string $field = '', string $value = ''){
             
             try {
-                $sql = (!$this->filters) ? "select $this->fields from $this->table where $field = :$field" : "select {$this->fields} from {$this->table}{$this->filters}";
+                $sql = (!empty($this->filters)) ? "select $this->fields from $this->table where $field = :$field" : "select {$this->fields} from {$this->table}{$this->filters}";
                 
                 $connection = Connection::connect();
 
@@ -48,8 +48,22 @@
                 $prepare->execute(!$this->filters ? [$field => $value]: []);
 
                 return $prepare->fetchObject(get_called_class());
-            } catch (\Throwable $th) {
-                //throw $th;
+            } catch (PDOException $e) {
+                dd($e->getMessage());
+            }
+        }
+
+        public function delete(string $field = '', string|int $value = ''){
+            try {
+                $sql = (!empty($this->filters)) ? "delete from {$this->table}{$this->filters}": "delete from $this->table where $field = :$field";
+                
+                $connection = Connection::connect();
+
+                $prepare = $connection->prepare($sql);
+                return $prepare->execute(empty($this->filters) ? [$field => $value]: []);
+
+            } catch (PDOException $e) {
+                dd($e->getMessage());
             }
         }
     }

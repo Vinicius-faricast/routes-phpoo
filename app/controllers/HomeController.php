@@ -10,16 +10,16 @@
         public function index(){
 
             $filter = new Filters;
-            $filter->where('id', '>', 0);
+            $filter->where('id', '=', 3);
             //$filter->limit(5);
             //$filter->orderBy("id", "desc");
             
             $user = new User;
             $user->setFilters($filter);
-            $userFound = $user->findBy();
+            $deleted = $user->delete();
 
 
-            dd($userFound);
+            dd($deleted);
             //dd($userFounds);
             
             $this->view('home', ['title' => 'home'] );
