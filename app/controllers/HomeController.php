@@ -15,11 +15,11 @@
             //$filter->orderBy("id", "desc");
             
             $user = new User;
-            $user->setFilters($filter);
-            $deleted = $user->delete();
+            
+            $count = $user->count();
 
 
-            dd($deleted);
+            dd($count);
             //dd($userFounds);
             
             $this->view('home', ['title' => 'home'] );
