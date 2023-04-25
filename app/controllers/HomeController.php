@@ -17,14 +17,9 @@
             //$count = $user->count();
             $user = new User;
             
-            $create = $user->create([
-                'firstName' => 'Alexandre',
-                'lastName' => 'Cardoso',
-                'email' => 'email@email.com',
-                'password' => '123',
-            ]);
+            $updated = $user->update('id', 5, ['firstName' => 'Vinicius', 'lastName' => 'Farias']);
 
-            dd($create);
+            dd($updated);
             //dd($userFounds);
             
             $this->view('home', ['title' => 'home'] );

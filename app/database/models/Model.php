@@ -37,6 +37,31 @@
             }
         }
 
+        public function update(string $field, string|int $fieldValue, array $data){
+
+            try {
+                $sql = "update $this->table set ";
+                foreach($data as $key => $value){
+                    $sql .= "$key = :$key, ";
+                }
+
+                $sql = rtrim($sql, ', ');
+
+                $sql .= " where $field = :$field";
+
+                $connection = Connection::connect();
+
+                $data[$field] = $fieldValue;
+
+                $prepare = $connection->prepare($sql);
+                
+                return $prepare->execute($data);
+
+            } catch(PDOException $e){
+                dd($e->getMessage());
+            }
+        }
+
         public function fetchAll(){
 
             try {
