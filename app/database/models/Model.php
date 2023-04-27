@@ -13,6 +13,7 @@
         private string $fields = "*";
         private string $filters = "";
         private string $pagination = '';
+        protected string $table;
 
         public function setFields($fields){
             $this->fields = $fields;
@@ -23,6 +24,8 @@
         }
 
         public function setPagination(Pagination $pagination){
+
+            $pagination->setTotalItens($this->count());
 
             $this->pagination = $pagination->dump();
         }
