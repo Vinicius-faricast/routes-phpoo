@@ -3,6 +3,7 @@
     namespace app\controllers;
 
     use app\core\Request;
+use app\support\Csrf;
 
     class UserController extends Controller{
 
@@ -13,8 +14,9 @@
 
         public function update($params){
 
-            $response = Request::only('password');
-            dd($response);
+            Csrf::validateToken();
+            //$response = Request::only('password');
+            //dd($response);
         }
         
     }
