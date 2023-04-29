@@ -1,8 +1,8 @@
 <?php 
     namespace app\support;
 
-use app\core\Request;
-use Exception;
+    use app\core\Request;
+    use Exception;
 
     class Csrf{
 
@@ -14,7 +14,7 @@ use Exception;
 
             $_SESSION['token'] = md5(uniqid());
 
-            return "<input type= 'hiden' name='token' value='{$_SESSION['token']}'>";
+            return "<input type= 'hidden' name='token' value='{$_SESSION['token']}'>";
 
         }
 
