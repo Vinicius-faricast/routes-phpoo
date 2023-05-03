@@ -57,7 +57,7 @@
             
             Csrf::validateToken();
             if (in_array(null, $inputValidationFields, true)) {
-                dd($inputValidationFields);    
+                //dd($inputValidationFields);    
                 return null;
             }
 

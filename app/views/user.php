@@ -4,7 +4,7 @@
 
 
 <form action="/user/update" method="post">
-    <?php echo flash('firstName'); ?>
+    <?php echo flash('firstName', 'color:red') ?>
     <input type="text" name="firstName" value="Vinicius">
 
     <?php echo flash('lastName') ?>

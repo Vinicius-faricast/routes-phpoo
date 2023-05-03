@@ -7,7 +7,7 @@
         //if(isset($_SESSION[$index])){
             
             $message = Flash::get($index);
-            
+            //dd($message);
             return "<span style='{$css}'>$message</span>";
         //}
     }
