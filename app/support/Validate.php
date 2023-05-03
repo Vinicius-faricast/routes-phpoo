@@ -10,7 +10,7 @@
         use Validations;
 
         public function validate(array $validationsFields){
-
+    
             $inputValidationFields = [];
             foreach ($validationsFields as $field => $validation) {
                 $havePipes = str_contains($validation, '|');
@@ -28,7 +28,7 @@
 
                     //$this->maxlen($param);
                     $inputValidationFields[$field] = $this->$validation($field, $param);
-
+                    
                     //dd($methodValidation, $param);
                 }else{
                     $validations = explode('|', $validation);
@@ -44,14 +44,24 @@
 
                         $inputValidationFields[$field] = $this->$validation($field, $param);
                         
-                        var_dump($inputValidationFields[$field]);
+                        //var_dump($inputValidationFields[$field]);
 
                         if(empty($inputValidationFields[$field])){
                             break;
                         }
                     }
                 }
+                
             }
+
+            
+            Csrf::validateToken();
+            if (in_array(null, $inputValidationFields, true)) {
+                dd($inputValidationFields);    
+                return null;
+            }
+
+            return $inputValidationFields;
 
         }
     }

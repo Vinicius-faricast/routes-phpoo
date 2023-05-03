@@ -15,15 +15,22 @@
 
         public function update($params){
 
-            Csrf::validateToken();
-
+            //Csrf::validateToken();
+            //dd($params);
             $validate = new Validate;
-            $validate->validate([
-                //"firstName" => "required",
-                //"lastName" => "required",
-                //"email" => "required|email",
+            $validated = $validate->validate([
+                "firstName" => "required",
+                "lastName" => "required",
+                "email" => "required|email",
                 "password" => "maxlen:10|required",
             ]);
+
+            if (!$validated) {
+                //dd($validated);
+                return redirect('/user/12');
+            }
+
+            //dd($params);
         }
         
     }
