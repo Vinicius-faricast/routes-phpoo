@@ -3,6 +3,7 @@
     namespace app\controllers;
 
     use app\core\Request;
+    use app\database\models\User;
     use app\support\Csrf;
     use app\support\Validate;
 
@@ -21,7 +22,7 @@
             $validated = $validate->validate([
                 "firstName" => "required",
                 "lastName" => "required",
-                "email" => "required|email",
+                "email" => "email|required|unique:".User::class,
                 "password" => "maxlen:10|required",
             ]);
 

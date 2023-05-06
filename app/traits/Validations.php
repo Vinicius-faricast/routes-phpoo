@@ -7,8 +7,20 @@
 
     trait Validations {
         
-        public function unique($field){
+        public function unique($field, $param){
 
+            $data = Request::input($field);
+
+            $model = new $param;
+            $model->setFields('id, firstName, lastName');
+            $registerFound = $model->findBy($field, $data);
+
+            if($registerFound){
+                Flash::set($field, "O valor $data já está registrado");
+                return null;
+            }
+
+            return strip_tags($data, "<p><b><ul><span><em>");
         }
 
         public function email(string $field){
